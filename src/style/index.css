@@ -1,0 +1,66 @@
+
+.sk * {
+    color: #eee;
+}
+
+.sk-text {
+    --c: #eee;
+    --fp: 0%;
+    --sp: 0%;
+    --lh: 0;
+
+    display: inline-block;
+    background-origin: content-box !important;
+    background-clip: content-box !important;
+    background-color: transparent !important;
+    background-repeat: repeat-y !important;
+    /*color: var(--c) !important;*/
+    background-image: linear-gradient(transparent var(--fp), var(--c) 0, var(--c) var(--sp), transparent 0);
+    background-size: 100% var(--lh);
+    color: transparent !important;
+
+}
+
+.sk-text > * {
+    color: transparent;
+}
+
+.sk-button {
+    color: #eee !important;
+    background: #eee !important;
+    border: none !important;
+    box-shadow: none !important;
+    outline: none !important;
+}
+
+.sk-border {
+    /*outline: 1px solid #eee !important;*/
+    border-color: #eee;
+}
+
+.sk-bg {
+    background: #eee !important;
+}
+
+.sk-list {
+    color: #eee;
+}
+
+.sk-input {
+    background: #eee !important;
+    color: transparent !important;
+    border-color: transparent;
+}
+
+.sk-input::-webkit-input-placeholder {
+    color: transparent !important;
+}
+
+.sk-block {
+    background-color: #eee !important;
+    border-color: #eee !important;
+}
+
+.sk-ignore {
+    opacity: 0;
+}
