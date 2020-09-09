@@ -34,35 +34,40 @@ const {
 } = SKELETON_TYPE;
 
 
-function inViewPort(node) {
-    const rect = node.getBoundingClientRect()
+function inViewPort(element) {
+    const rect = element.getBoundingClientRect();
     return rect.top < window.innerHeight && rect.left < window.innerWidth
 }
 
+function isVisibleByStyles(element) {
+	const styles = window.getComputedStyle(element);
+	return styles.visibility !== "hidden" && styles.display !== "none";
+}
+
+function isBehindOtherElement(element) {
+	const boundingRect = element.getBoundingClientRect();
+	// adjust coordinates to get more accurate results
+	const left = boundingRect.left + 1;
+	const right = boundingRect.right - 1;
+	const top = boundingRect.top + 1;
+	const bottom = boundingRect.bottom - 1;
+
+	if (document.elementFromPoint(left, top) !== element) return true;
+	if (document.elementFromPoint(right, top) !== element) return true;
+	if (document.elementFromPoint(left, bottom) !== element) return true;
+	if (document.elementFromPoint(right, bottom) !== element) return true;
+
+	return false;
+}
+
 function checkNodeVisible($node) {
+    let element = $node[0];
     // https://segmentfault.com/q/1010000020091228
     // todo 校验各种不可见的情况
-
-    // if (
-    // 		$node.attr("class") &&
-    // 		$node.attr("class").includes("mask")
-    // 	) {
-    //         console.log($node)
-    // 		console.log($node.css("visibility"));
-    // 	}
-    if ($node.attr("class") && $node.attr("class").includes("mask")) {
-        return false
-    }
-    if (!inViewPort($node[0])) {
-        return false
-    }
-    if ($node.css("display") === "none") {
-        return false
-    }
-    if ($node.css("visibility") === "hidden") {
-        return false
-    }
-    return true
+    if (!isVisibleByStyles(element)) return false;
+    // if (isBehindOtherElement(element)) return false;
+    if (!inViewPort(element)) return false;
+    return true;
 }
 
 function hasBorder($node) {
